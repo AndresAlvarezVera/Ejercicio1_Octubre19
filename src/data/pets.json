@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "especie": "Gato",
+    "color": "Naranja",
+    "edad": 3,
+    "sexo": "macho",
+    "img": [
+      "/img/pets/1792976513986-pets.png"
+    ]
+  },
+  {
+    "id": 2,
+    "especie": "Gato",
+    "color": "Naranja",
+    "edad": 6,
+    "sexo": "hembra",
+    "img": [
+      "/img/pets/1792976542883-pets2.png",
+      "/img/pets/1792976542888-pets.png"
+    ]
+  },
+  {
+    "id": 3,
+    "especie": "gato",
+    "color": "naranja",
+    "edad": 3,
+    "sexo": "hembra",
+    "img": [
+      "/img/pets/1792976687233-mascota2.png",
+      "/img/pets/1792976687236-mascota1.png"
+    ]
+  }
+]

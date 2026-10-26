@@ -1,11 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>API Test Client - Sci-Fi Edition</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>// PANEL DE ADMINISTRACIÓN</h1>
+        </header>
+
+        <main>
+            <!-- PANEL DE USUARIOS -->
+            <section class="panel">
+                <div class="panel-header">
+                    <h2>[ GESTIÓN DE USUARIOS ]</h2>
+                </div>
+                <form id="userForm" onsubmit="createUser(event)">
+                    <div class="input-group">
+                        <input type="text" name="firstname" placeholder="Nombre" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="lastname" placeholder="Apellido" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                    <div class="input-group file-group">
+                        <label>AVATAR (IMG):</label>
+                        <input type="file" name="avatar" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn-neon">EJECUTAR: CREAR USUARIO</button>
+                </form>
+                <div class="search-bar">
+                    <input type="number" id="searchUserId" placeholder="ID a buscar (vacío = todos)">
+                    <button onclick="searchUserById()" class="btn-neon btn-ghost btn-search">BUSCAR ID</button>
+                </div>
+                <button onclick="getUsers()" class="btn-neon btn-ghost">RECARGAR TODOS</button>
+                <div class="terminal-output" id="userResult">Esperando comandos...</div>
+            </section>
+
+            <!-- PANEL DE MASCOTAS -->
+            <section class="panel">
+                <div class="panel-header">
+                    <h2>[ GESTIÓN DE MASCOTAS ]</h2>
+                </div>
+                <form id="petForm" onsubmit="createPet(event)">
+                    <div class="input-group">
+                        <input type="text" name="especie" placeholder="Especie (ej. Gato)" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="color" placeholder="Color" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" name="edad" placeholder="Edad" required>
+                    </div>
+                    <div class="input-group">
+                        <select name="sexo">
+                            <option value="macho">MACHO</option>
+                            <option value="hembra">HEMBRA</option>
+                        </select>
+                    </div>
+                    <div class="input-group file-group">
+                        <label>IMÁGENES (MAX 5):</label>
+                        <input type="file" name="img" accept="image/*" multiple required>
+                    </div>
+                    <button type="submit" class="btn-neon">EJECUTAR: CREAR MASCOTA</button>
+                </form>
+                <div class="search-bar">
+                    <input type="number" id="searchPetId" placeholder="ID a buscar (vacío = todos)">
+                    <button onclick="searchPetById()" class="btn-neon btn-ghost btn-search">BUSCAR ID</button>
+                </div>
+                <button onclick="getPets()" class="btn-neon btn-ghost">RECARGAR TODOS</button>
+                <div class="terminal-output" id="petResult">Esperando comandos...</div>
+            </section>
+        </main>
+    </div>
+    <!-- MODAL EDITAR USUARIO -->
+    <div id="editUserModal" class="modal">
+        <div class="panel modal-content">
+            <span class="close-btn" onclick="closeModal('editUserModal')">&times;</span>
+            <div class="panel-header">
+                <h2>[ MODIFICAR USUARIO ]</h2>
+            </div>
+            <form id="editUserForm" onsubmit="submitEditUser(event)">
+                <input type="hidden" id="editUserId">
+                <div class="input-group">
+                    <label>Nombre:</label>
+                    <input type="text" id="editUserFirstname" name="firstname" required>
+                </div>
+                <div class="input-group">
+                    <label>Apellido:</label>
+                    <input type="text" id="editUserLastname" name="lastname" required>
+                </div>
+                <div class="input-group">
+                    <label>Username:</label>
+                    <input type="text" id="editUserUsername" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label>Nueva Contraseña (dejar en blanco para no cambiar):</label>
+                    <input type="password" id="editUserPassword" name="password">
+                </div>
+                <div class="input-group file-group">
+                    <label>Nuevo Avatar (dejar vacío para mantener actual):</label>
+                    <input type="file" name="avatar" accept="image/*">
+                </div>
+                <button type="submit" class="btn-neon"
+                    style="color: var(--neon-orange); border-color: var(--neon-orange);">ACTUALIZAR USUARIO</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDITAR MASCOTA -->
+    <div id="editPetModal" class="modal">
+        <div class="panel modal-content">
+            <span class="close-btn" onclick="closeModal('editPetModal')">&times;</span>
+            <div class="panel-header">
+                <h2>[ MODIFICAR MASCOTA ]</h2>
+            </div>
+            <form id="editPetForm" onsubmit="submitEditPet(event)">
+                <input type="hidden" id="editPetId">
+                <div class="input-group">
+                    <label>Especie:</label>
+                    <input type="text" id="editPetEspecie" name="especie" required>
+                </div>
+                <div class="input-group">
+                    <label>Color:</label>
+                    <input type="text" id="editPetColor" name="color" required>
+                </div>
+                <div class="input-group">
+                    <label>Edad:</label>
+                    <input type="number" id="editPetEdad" name="edad" required>
+                </div>
+                <div class="input-group">
+                    <label>Sexo:</label>
+                    <select id="editPetSexo" name="sexo">
+                        <option value="macho">MACHO</option>
+                        <option value="hembra">HEMBRA</option>
+                    </select>
+                </div>
+                <div class="input-group file-group">
+                    <label>Agregar Nuevas Imágenes (se sumarán a las actuales):</label>
+                    <input type="file" name="img" accept="image/*" multiple>
+                </div>
+                <button type="submit" class="btn-neon"
+                    style="color: var(--neon-orange); border-color: var(--neon-orange);">ACTUALIZAR MASCOTA</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
 </body>
+
 </html>

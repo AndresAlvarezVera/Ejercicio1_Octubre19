@@ -14,4 +14,4 @@ async function writeData(filePath, data) {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
-export default { readData, writeData };
+export { readData, writeData };
