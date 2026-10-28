@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         cb(null, dest);
     },
     filename: function (req, file, cb) {
-        const uniqueName = `${Date.now()}-${file.originalname}`; // Renombrado para evitar colisiones
+        const uniqueName = `${Date.now()}-${file.originalname}`; // Renombra las imagenes para evitar colisiones
         cb(null, uniqueName);
     }
 });

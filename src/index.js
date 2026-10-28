@@ -13,7 +13,7 @@ const PORT = 3000; // Puerto del servidor
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servidor de Archivos Estáticos (RE-01)
+// Servidor de Archivos Estáticos
 app.use(express.static(path.join(__dirname, '../public'))); // Exponer directorio public
 
 // Rutas
