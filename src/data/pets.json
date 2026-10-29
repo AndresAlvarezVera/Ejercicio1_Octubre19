@@ -30,5 +30,16 @@
       "/img/pets/1792976687233-mascota2.png",
       "/img/pets/1792976687236-mascota1.png"
     ]
+  },
+  {
+    "id": 4,
+    "especie": "perro",
+    "color": "negro",
+    "edad": 5,
+    "sexo": "macho",
+    "img": [
+      "/img/pets/1793237069079-images.jfif",
+      "/img/pets/1793237069080-golden-retriever.webp"
+    ]
   }
 ]
